@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.subjectsRoutes = void 0;
+const express_1 = require("express");
+const subjects_controller_1 = require("./subjects.controller");
+const auth_middleware_1 = require("../../middlewares/auth.middleware");
+const subjectsRoutes = (0, express_1.Router)();
+exports.subjectsRoutes = subjectsRoutes;
+const subjectsController = new subjects_controller_1.SubjectsController();
+subjectsRoutes.use(auth_middleware_1.authMiddleware);
+subjectsRoutes.post("/", (req, res) => subjectsController.create(req, res));
+subjectsRoutes.get("/", (req, res) => subjectsController.list(req, res));
+subjectsRoutes.get("/:id", (req, res) => subjectsController.getById(req, res));
+subjectsRoutes.put("/:id", (req, res) => subjectsController.update(req, res));
+subjectsRoutes.delete("/:id", (req, res) => subjectsController.remove(req, res));
